@@ -1,0 +1,21 @@
+body {
+    background-color:darkcyan;
+    color:white;
+}
+
+h1{
+    color:white;
+    size:40px;
+    text-align:center;
+}
+
+div {
+    display: block;
+    margin: 0 auto;
+    text-align:center;
+}
+
+p {
+    margin: 30px;
+    font-weight: bold;
+}
