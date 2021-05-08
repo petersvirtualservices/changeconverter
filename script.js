@@ -11,6 +11,9 @@ function calculate() {
     var dif = g-a;
     console.log("Difference: " + dif);
 
+
+    document.getElementById("change").textContent= dif;
+
     var hundred =  Math.floor(dif / 100);
     var hundredMod = dif % 100;
     console.log("How Many 100's To Give Back: " + hundred);
@@ -24,7 +27,7 @@ function calculate() {
     document.getElementById("fifty").textContent= fifty;
     
     var twenty =  Math.floor(fiftyMod / 20);
-    var twentyMod = fifty % 20;
+    var twentyMod = fiftyMod % 20;
     console.log("How Many 20's To Give Back: " + twenty);
     console.log("How Much Left After 20's Have Been Given: " + twentyMod);
     document.getElementById("twenty").textContent= twenty;
