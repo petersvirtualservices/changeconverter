@@ -73,7 +73,12 @@ const calculate = function calculate() {
     document.getElementById("penny").textContent = penny;
 
 }
-
+/*
+ localStorage.setItem("email", email/function);
+      var email = localStorage.getItem("email");
+Send information to local storage
+JSON parse and JSON stringify
+*/
 let db = null;
 
 function create_db() {
