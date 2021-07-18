@@ -1,36 +1,60 @@
 body {
     background-color:lightcyan;
     color:darkslateblue;
+    text-align:center;
 }
 
 h1{
-    color:darkslateblue;
     size:40px;
-    text-align:center;
+}
+h2{
+    size: 25px;
 }
 
 div {
     display: block;
     margin: 0 auto;
-    text-align:center;
 }
 
 p {
     margin: 30px;
     font-weight: bold;
     font-size: 20px;
+    color:darkslateblue;
 }
 
-.money {
+.dollar {
     display: block;
     border: 20px;
     background-color: darkgreen;
     border-color: black;
     width: 350px;
     height: 75px;
-    margin: 0 auto;
+    margin: 20px auto;
+    color: white;
+    padding: 60px 10px 50px 10px;
+    font-size: 50px;
+}
+
+.coin{
+    display: block;
+    border: 20px;
+    background-color: brown;
+    border-color: black;
+    width: 350px;
+    height: 75px;
+    margin: 20px auto;
     text-align: center;
     color: white;
     padding: 60px 10px 50px 10px;
     font-size: 50px;
+}
+
+.notNeeded {
+    visibility:hidden;
+}
+
+table{
+    margin: 0 auto;
+    padding: 5px;
 }
