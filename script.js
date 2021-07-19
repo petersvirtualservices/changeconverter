@@ -11,7 +11,7 @@ const calculate = function calculate() {
     var a = document.getElementById("amount").value;
     var g = document.getElementById("given").value;
     var dif = (g - a).toFixed(2);
-    document.getElementById("change").textContent = dif;
+    document.getElementById("change").textContent = "$" + dif;
 
 
     var hundred = Math.floor(dif / 100);
