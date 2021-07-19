@@ -1,6 +1,5 @@
 var convertButton = document.getElementById("submitDifference");
-const request = indexedDB.open("library");
-let db;
+
 
 
 convertButton.addEventListener("submit", function (e) {
@@ -87,123 +86,51 @@ const calculate = function calculate() {
         nickleSet.setAttribute('class', 'coin');
     }
 
-    var penny = Math.floor(nickleMod / .01);
+    var penny = nickleMod.toFixed(2)*100;
+    console.log(nickleMod.toFixed(2));
     var pennySet = document.getElementById("penny");
     pennySet.textContent = penny;
     if (penny) {
         pennySet.setAttribute('class', 'coin');
     }
 
+
+    //***********INDEXEDDB***********
+
+
+    const request = indexedDB.open("library");
+    let db;
+
+    request.onupgradeneeded = function () {
+        // The database did not previously exist, so create object stores and indexes.
+        const db = request.result;
+        const store = db.createObjectStore("calculations", { keyPath: "isbn" });
+        const amountGiven = store.createIndex("Amount_Given", "given");
+        const saleAmount = store.createIndex("Sale_Amount", "saleAmount");
+        const hundredStore = store.createIndex("hundreds", "hundred");
+        const fiftyStore = store.createIndex("fiftys", "fifty");
+        const twentyStore = store.createIndex("twentys", "twenty");
+        const tenStore = store.createIndex("tens", "ten");
+        const fiveStore = store.createIndex("fives", "five");
+        const oneStore = store.createIndex("ones", "one");
+        const quarterStore = store.createIndex("quarters", "quarter");
+        const dimeStore = store.createIndex("dimes", "dime");
+        const nickleStore = store.createIndex("nickles", "nickle");
+        const pennyStore = store.createIndex("pennys", "penny");
+
+        // Populate with initial data.
+        store.put({ isbn: 123456, given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
+
+    };
+
+    request.onsuccess = function () {
+        db = request.result;
+    };
 }
 
-
-var tesy = 5;
-var tesu = 6;
-
-request.onupgradeneeded = function () {
-    // The database did not previously exist, so create object stores and indexes.
-    const db = request.result;
-    const store = db.createObjectStore("calculations", { keyPath: "isbn" });
-    const amountGiven = store.createIndex("Amount_Given", "given");
-    const saleAmount = store.createIndex("Sale_Amount", "saleAmount");
-    const hundredStore = store.createIndex("hundreds", "hundred");
-    const fiftyStore = store.createIndex("fiftys", "fifty");
-    const twentyStore = store.createIndex("twentys", "twenty");
-    const tenStore = store.createIndex("tens", "ten");
-    const fiveStore = store.createIndex("fives", "five");
-    const oneStore = store.createIndex("ones", "one");
-    const quarterStore = store.createIndex("quarters", "quarter");
-    const dimeStore = store.createIndex("dimes", "dime");
-    const nickleStore = store.createIndex("nickles", "nickle");
-    const pennyStore = store.createIndex("pennys", "penny");
-
-    // Populate with initial data.
-    store.put({ isbn: 123456, given: tesy, saleAmount:tesu, hundred:"test", fifty:"test", twenty:"test", ten:"test", five:"test", one:"test", quarter:"test", dime:"test", nickle:"test", penny:"test"  });
-    
-};
-
-request.onsuccess = function () {
-    db = request.result;
-};
-
-
-
-//***********INDEXEDDB***********
 /*
-
-//Table Creation
-//https://www.w3.org/TR/IndexedDB/
-
-const request = indexedDB.open("library");
-let db;
-
-request.onupgradeneeded = function () {
-    // The database did not previously exist, so create object stores and indexes.
-    const db = request.result;
-    const store = db.createObjectStore("calculations", {keyPath: "given"});
-    const amountGiven = store.createIndex("Amount_Given", "given");
-    const saleAmount = store.createIndex("Sale_Amount", "saleAmount");
-    const hundredStore = store.createIndex("hundreds", "hundred");
-    const fiftyStore = store.createIndex("fiftys", "fifty");
-    const twentyStore = store.createIndex("twentys", "twenty");
-    const tenStore = store.createIndex("tens", "ten");
-    const fiveStore = store.createIndex("fives", "five");
-    const oneStore = store.createIndex("ones", "one");
-    const quarterStore = store.createIndex("quarters", "quarter");
-    const dimeStore = store.createIndex("dimes", "dime");
-    const nickleStore = store.createIndex("nickles", "nickle");
-    const pennyStore = store.createIndex("pennys", "penny");
-
-store.put({Amount_Given: "Quarry Memories", Sale_Amount: "Fred", hundreds: 123456});
-};
-request.onsuccess = function () {
-    db = request.result;
-};
-
-
-
-//Set Attribute
-//https://wanago.io/2018/10/08/fundamentals-of-storing-data-in-the-browser-with-indexeddb/
-
-
-openRequest.addEventListener('success', (event) => {
-    const database = event.target.result;
-    const transaction = database.transaction('calculations', 'readwrite');
-    const store = transaction.objectStore('calculations');
-
-    var a = document.getElementById("amount");
-    var g = document.getElementById("given");
-    var hundredSet = document.getElementById("hundred");
-    var fiftySet = document.getElementById("fifty");
-    var twentySet = document.getElementById("twenty");
-    var tenSet = document.getElementById("ten");
-    var fiveSet = document.getElementById("five");
-    var oneSet = document.getElementById("one");
-    var quarterSet = document.getElementById("quarter");
-    var dimeSet = document.getElementById("dime");
-    var nickleSet = document.getElementById("nickle");
-    var pennySet = document.getElementById("penny");
-
-    store.add({
-        Amount_Given: g,
-        Sale_Amount: a,
-        hundred: hundredSet,
-        fifty: fiftySet,
-        twenty: twentySet,
-        ten: tenSet,
-        five: fiveSet,
-        one: oneSet,
-        quarter: quarterSet,
-        dime: dimeSet,
-        nickle: nickleSet,
-        penny: pennySet
-    }, 1);
-});
-}
-*/
-/*
- localStorage.setItem("email", email/function);
-      var email = localStorage.getItem("email");
+localStorage.setItem("email", email/function);
+var email = localStorage.getItem("email");
 Send information to local storage
 JSON parse and JSON stringify
 */

@@ -27,7 +27,6 @@ p {
     display: block;
     border: 20px;
     background-color: darkgreen;
-    border-color: black;
     width: 350px;
     height: 75px;
     margin: 20px auto;
@@ -40,7 +39,6 @@ p {
     display: block;
     border: 20px;
     background-color: brown;
-    border-color: black;
     width: 350px;
     height: 75px;
     margin: 20px auto;
