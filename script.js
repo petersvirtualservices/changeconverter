@@ -98,13 +98,13 @@ const calculate = function calculate() {
     //***********INDEXEDDB***********
 
 
-    const request = indexedDB.open("library");
+    const request = indexedDB.open("Change");
     let db;
 
     request.onupgradeneeded = function () {
         // The database did not previously exist, so create object stores and indexes.
         const db = request.result;
-        const store = db.createObjectStore("calculations", { keyPath: "isbn" });
+        const store = db.createObjectStore("calculations", { keyPath: "id" });
         const amountGiven = store.createIndex("Amount_Given", "given");
         const saleAmount = store.createIndex("Sale_Amount", "saleAmount");
         const hundredStore = store.createIndex("hundreds", "hundred");
@@ -119,8 +119,9 @@ const calculate = function calculate() {
         const pennyStore = store.createIndex("pennys", "penny");
 
         // Populate with initial data.
-        store.put({ isbn: 123456, given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
-
+        store.put({ id: 001, given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
+        store.put({ id: 002, given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
+        store.put({ id: 003, given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
     };
 
     request.onsuccess = function () {
