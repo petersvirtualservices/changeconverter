@@ -1,8 +1,4 @@
 var convertButton = document.getElementById("submitDifference");
-//const fs = require('fs');
-//const lighthouse = require('lighthouse');
-//const chromeLauncher = require('chrome-launcher');
-
 
 convertButton.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -142,8 +138,11 @@ Send information to local storage
 JSON parse and JSON stringify
 */
 
-/*
+
 (async () => {
+    const fs = require('fs');
+const lighthouse = require('lighthouse');
+const chromeLauncher = require('chrome-launcher');
     const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
     const options = {logLevel: 'info', output: 'html', onlyCategories: ['performance'], port: chrome.port};
     const runnerResult = await lighthouse('https://petersvirtualservices.github.io/changeconverter/', options);
@@ -158,4 +157,4 @@ JSON parse and JSON stringify
 
     await chrome.kill();
   })();
-  */
+  
