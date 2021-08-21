@@ -95,41 +95,40 @@ const calculate = function calculate() {
 };
 
 
-    //***********INDEXEDDB***********
+//***********INDEXEDDB***********
 
-/*
-    const request = indexedDB.open("Change");
-    let db;
 
-    request.onupgradeneeded = function () {
-        // The database did not previously exist, so create object stores and indexes.
-        const db = request.result;
-        const store = db.createObjectStore("calculations", { keyPath: "id" });
-        const amountGiven = store.createIndex("Amount_Given", "given");
-        const saleAmount = store.createIndex("Sale_Amount", "saleAmount");
-        const hundredStore = store.createIndex("hundreds", "hundred");
-        const fiftyStore = store.createIndex("fiftys", "fifty");
-        const twentyStore = store.createIndex("twentys", "twenty");
-        const tenStore = store.createIndex("tens", "ten");
-        const fiveStore = store.createIndex("fives", "five");
-        const oneStore = store.createIndex("ones", "one");
-        const quarterStore = store.createIndex("quarters", "quarter");
-        const dimeStore = store.createIndex("dimes", "dime");
-        const nickleStore = store.createIndex("nickles", "nickle");
-        const pennyStore = store.createIndex("pennys", "penny");
+const request = indexedDB.open("Change");
+let db;
 
-        // Populate with initial data.
-        //const storeAdd = db.transaction(["calculations"], "readwrite");
-        storeAdd.put({ id: g + a, given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
+request.onupgradeneeded = function () {
+    // The database did not previously exist, so create object stores and indexes.
+    const db = request.result;
+    const store = db.createObjectStore("calculations", { keyPath: "id" });
+    const amountGiven = store.createIndex("Amount_Given", "given");
+    const saleAmount = store.createIndex("Sale_Amount", "saleAmount");
+    const hundredStore = store.createIndex("hundreds", "hundred");
+    const fiftyStore = store.createIndex("fiftys", "fifty");
+    const twentyStore = store.createIndex("twentys", "twenty");
+    const tenStore = store.createIndex("tens", "ten");
+    const fiveStore = store.createIndex("fives", "five");
+    const oneStore = store.createIndex("ones", "one");
+    const quarterStore = store.createIndex("quarters", "quarter");
+    const dimeStore = store.createIndex("dimes", "dime");
+    const nickleStore = store.createIndex("nickles", "nickle");
+    const pennyStore = store.createIndex("pennys", "penny");
+    /*
+            // Populate with initial data.
+            const storeAdd = db.transaction(["calculations"], "readwrite");
+            storeAdd.add({ id: g + a, given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
+    */
+};
 
-    };
+request.onsuccess = function () {
+    db = request.result;
+};
 
-    request.onsuccess = function () {
-        db = request.result;
-    };
-}
 
-*/
 
 /*
 localStorage.setItem("email", email/function);
@@ -141,10 +140,10 @@ JSON parse and JSON stringify
 
 (async () => {
     const fs = require('fs');
-const lighthouse = require('lighthouse');
-const chromeLauncher = require('chrome-launcher');
-    const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-    const options = {logLevel: 'info', output: 'html', onlyCategories: ['performance'], port: chrome.port};
+    const lighthouse = require('lighthouse');
+    const chromeLauncher = require('chrome-launcher');
+    const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
+    const options = { logLevel: 'info', output: 'html', onlyCategories: ['performance'], port: chrome.port };
     const runnerResult = await lighthouse('https://petersvirtualservices.github.io/changeconverter/', options);
 
     // `.report` is the HTML report as a string
@@ -156,5 +155,4 @@ const chromeLauncher = require('chrome-launcher');
     console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
 
     await chrome.kill();
-  })();
-  
+})();
