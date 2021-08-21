@@ -1,4 +1,4 @@
-
+/*
 const fs = require('fs');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
@@ -18,3 +18,4 @@ const chromeLauncher = require('chrome-launcher');
 
   await chrome.kill();
 })();
+*/

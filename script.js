@@ -1,7 +1,7 @@
 var convertButton = document.getElementById("submitDifference");
-const fs = require('fs');
-const lighthouse = require('lighthouse');
-const chromeLauncher = require('chrome-launcher');
+//const fs = require('fs');
+//const lighthouse = require('lighthouse');
+//const chromeLauncher = require('chrome-launcher');
 
 
 convertButton.addEventListener("submit", function (e) {
@@ -88,7 +88,7 @@ const calculate = function calculate() {
         nickleSet.setAttribute('class', 'coin');
     }
 
-    var penny = nickleMod.toFixed(2)*100;
+    var penny = nickleMod.toFixed(2) * 100;
     console.log(nickleMod.toFixed(2));
     var pennySet = document.getElementById("penny");
     pennySet.textContent = penny;
@@ -96,10 +96,12 @@ const calculate = function calculate() {
         pennySet.setAttribute('class', 'coin');
     }
 
+};
+
 
     //***********INDEXEDDB***********
 
-
+/*
     const request = indexedDB.open("Change");
     let db;
 
@@ -121,15 +123,17 @@ const calculate = function calculate() {
         const pennyStore = store.createIndex("pennys", "penny");
 
         // Populate with initial data.
-        store.put({ id: 001, given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
-        store.put({ id: 002, given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
-        store.put({ id: 003, given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
+        //const storeAdd = db.transaction(["calculations"], "readwrite");
+        storeAdd.put({ id: g + a, given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
+
     };
 
     request.onsuccess = function () {
         db = request.result;
     };
 }
+
+*/
 
 /*
 localStorage.setItem("email", email/function);
@@ -138,19 +142,20 @@ Send information to local storage
 JSON parse and JSON stringify
 */
 
-
+/*
 (async () => {
     const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
     const options = {logLevel: 'info', output: 'html', onlyCategories: ['performance'], port: chrome.port};
     const runnerResult = await lighthouse('https://petersvirtualservices.github.io/changeconverter/', options);
-  
+
     // `.report` is the HTML report as a string
     const reportHtml = runnerResult.report;
     fs.writeFileSync('lhreport.html', reportHtml);
-  
+
     // `.lhr` is the Lighthouse Result as a JS object
     console.log('Report is done for', runnerResult.lhr.finalUrl);
     console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
-  
+
     await chrome.kill();
   })();
+  */
