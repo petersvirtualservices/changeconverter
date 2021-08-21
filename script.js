@@ -104,7 +104,7 @@ let db;
 request.onupgradeneeded = function () {
     // The database did not previously exist, so create object stores and indexes.
     const db = request.result;
-    const store = db.createObjectStore("calculations", { keyPath: "id" });
+    const store = db.createObjectStore("calculations", { keyPath: "saleAmount" });
     const amountGiven = store.createIndex("Amount_Given", "given");
     const saleAmount = store.createIndex("Sale_Amount", "saleAmount");
     const hundredStore = store.createIndex("hundreds", "hundred");
@@ -117,15 +117,17 @@ request.onupgradeneeded = function () {
     const dimeStore = store.createIndex("dimes", "dime");
     const nickleStore = store.createIndex("nickles", "nickle");
     const pennyStore = store.createIndex("pennys", "penny");
-    /*
-            // Populate with initial data.
-            const storeAdd = db.transaction(["calculations"], "readwrite");
-            storeAdd.add({ id: g + a, given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
-    */
+
+    // Populate with initial data.
+    const storeAdd = db.transaction(["calculations"], "readwrite");
+    const transaction = storeAdd.objectStore('calculations');
+    transaction.add({ given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
+    return storeAdd.complete;
+
 };
 
 request.onsuccess = function () {
-    db = request.result;
+    request.result;
 };
 
 
@@ -156,3 +158,27 @@ JSON parse and JSON stringify
 
     await chrome.kill();
 })();
+
+
+/*
+
+var pie = "apple";
+
+var predictable = function(){
+  return 1;
+}
+
+// module.exports is an object we use to store variables or methods
+module.exports = {
+  pie: pie,
+  predictable: predictable
+};
+
+
+var badmath = require("./badmath.js");
+
+console.log(badmath.pie);
+
+console.log(badmath.predictable());
+
+*/
