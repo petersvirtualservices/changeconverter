@@ -85,7 +85,6 @@ const calculate = function calculate() {
     }
 
     var penny = nickleMod.toFixed(2) * 100;
-    console.log(nickleMod.toFixed(2));
     var pennySet = document.getElementById("penny");
     pennySet.textContent = penny;
     if (penny) {
@@ -117,18 +116,16 @@ request.onupgradeneeded = function () {
     const dimeStore = store.createIndex("dimes", "dime");
     const nickleStore = store.createIndex("nickles", "nickle");
     const pennyStore = store.createIndex("pennys", "penny");
-
-    // Populate with initial data.
-    const storeAdd = db.transaction(["calculations"], "readwrite");
-    const transaction = storeAdd.objectStore('calculations');
-    transaction.add({ given: g, saleAmount: a, hundred: hundred, fifty: fifty, twenty: twenty, ten: ten, five: five, one: one, quarter: quarter, dime: dime, nickle: nickle, penny: penny });
-    return storeAdd.complete;
-
 };
 
 request.onsuccess = function () {
     request.result;
 };
+
+request.onerror = function () {
+    alert(`Error: ${err}`)
+
+}
 
 
 
@@ -140,24 +137,7 @@ JSON parse and JSON stringify
 */
 
 
-(async () => {
-    const fs = require('fs');
-    const lighthouse = require('lighthouse');
-    const chromeLauncher = require('chrome-launcher');
-    const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
-    const options = { logLevel: 'info', output: 'html', onlyCategories: ['performance'], port: chrome.port };
-    const runnerResult = await lighthouse('https://petersvirtualservices.github.io/changeconverter/', options);
 
-    // `.report` is the HTML report as a string
-    const reportHtml = runnerResult.report;
-    fs.writeFileSync('lhreport.html', reportHtml);
-
-    // `.lhr` is the Lighthouse Result as a JS object
-    console.log('Report is done for', runnerResult.lhr.finalUrl);
-    console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
-
-    await chrome.kill();
-})();
 
 
 /*

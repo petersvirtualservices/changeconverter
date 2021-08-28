@@ -1,3 +1,5 @@
+/*
+
 (async () => {
     const fs = require('fs');
     const lighthouse = require('lighthouse');
@@ -16,3 +18,5 @@
 
     await chrome.kill();
 })();
+
+*/
