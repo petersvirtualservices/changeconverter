@@ -8,11 +8,14 @@ convertButton.addEventListener("submit", function (e) {
 const calculate = function calculate() {
     var a = document.getElementById("amount").value;
     var g = document.getElementById("given").value;
-    var dif = (g - a).toFixed(2);
-    document.getElementById("change").textContent = "$" + dif;
-
-
-    var hundred = Math.floor(dif / 100);
+    var dif = (g - a).toFixed(2);  
+    
+    if(dif<1){
+        document.getElementById("change").textContent ="Do Not Give Any Change Back."
+    } else {
+        document.getElementById("change").textContent = "$" + dif;
+    
+   var hundred = Math.floor(dif / 100);
     var hundredMod = dif % 100;
     var hundredSet = document.getElementById("hundred");
     hundredSet.textContent = hundred;
@@ -89,7 +92,7 @@ const calculate = function calculate() {
     pennySet.textContent = penny;
     if (penny) {
         pennySet.setAttribute('class', 'coin');
-    }
+    }}
 
 };
 
@@ -116,6 +119,14 @@ request.onupgradeneeded = function () {
     const dimeStore = store.createIndex("dimes", "dime");
     const nickleStore = store.createIndex("nickles", "nickle");
     const pennyStore = store.createIndex("pennys", "penny");
+
+    function addCalculation () {
+
+    }
+
+    const tx = db.transaction("Change", "readwrite");
+    const cStore = tx.objectStore('Change');
+    cStore.add()
 };
 
 request.onsuccess = function () {

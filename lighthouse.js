@@ -5,7 +5,7 @@
     const lighthouse = require('lighthouse');
     const chromeLauncher = require('chrome-launcher');
     const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
-    const options = { logLevel: 'info', output: 'html', onlyCategories: ['performance'], port: chrome.port };
+    const options = { logLevel: 'info', output: 'html', port: chrome.port };
     const runnerResult = await lighthouse('https://petersvirtualservices.github.io/changeconverter/', options);
 
     // `.report` is the HTML report as a string
