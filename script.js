@@ -95,16 +95,12 @@ const calculate = function calculate() {
         }
     }
 
-
-
-
     //***********INDEXEDDB***********
 
     const request = indexedDB.open("Change");
     let db;
 
     request.onupgradeneeded = function () {
-        // The database did not previously exist, so create object stores and indexes.
         const db = request.result;
         const store = db.createObjectStore("calculations", { keyPath: "saleAmount" });
         const amountGiven = store.createIndex("Amount_Given", "given");
@@ -118,8 +114,7 @@ const calculate = function calculate() {
         const quarterStore = store.createIndex("quarters", "quarter");
         const dimeStore = store.createIndex("dimes", "dime");
         const nickleStore = store.createIndex("nickles", "nickle");
-        const pennyStore = store.createIndex("pennys", "penny");       
-
+        const pennyStore = store.createIndex("pennys", "penny");    
     };
 
     function changeConversion() {
@@ -138,6 +133,7 @@ const calculate = function calculate() {
             fifty: fifty,
             hundred: hundred
         }
+
         const db = request.result;
         const tx = db.transaction("calculations", "readwrite");
         const cStore = tx.objectStore("calculations");
@@ -150,42 +146,7 @@ const calculate = function calculate() {
     };
 
     request.onerror = function () {
-        alert(`Error: Check Console Log`)
-
+        alert(`Error: Check Console Log`);
     }
 
 };
-
-/*
-localStorage.setItem("email", email/function);
-var email = localStorage.getItem("email");
-Send information to local storage
-JSON parse and JSON stringify
-*/
-
-
-
-
-
-/*
-
-var pie = "apple";
-
-var predictable = function(){
-  return 1;
-}
-
-// module.exports is an object we use to store variables or methods
-module.exports = {
-  pie: pie,
-  predictable: predictable
-};
-
-
-var badmath = require("./badmath.js");
-
-console.log(badmath.pie);
-
-console.log(badmath.predictable());
-
-*/
