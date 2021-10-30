@@ -18,7 +18,7 @@ const calculate = function calculate() {
         var hundred = Math.floor(dif / 100);
         var hundredMod = dif % 100;
         var hundredSet = document.getElementById("hundred");
-        hundredSet.textContent = hundred;
+        hundredSet.textContent = "$100 x" +hundred;
         if (hundred) {
             hundredSet.setAttribute('class', 'dollar');
         }
@@ -26,7 +26,7 @@ const calculate = function calculate() {
         var fifty = Math.floor(hundredMod / 50);
         var fiftyMod = hundredMod % 50;
         var fiftySet = document.getElementById("fifty");
-        fifty.textContent = fifty;
+        fiftySet.textContent = "$50 x" +fifty;
         if (fifty) {
             fiftySet.setAttribute('class', 'dollar');
         }
@@ -34,7 +34,7 @@ const calculate = function calculate() {
         var twenty = Math.floor(fiftyMod / 20);
         var twentyMod = fiftyMod % 20;
         var twentySet = document.getElementById("twenty");
-        twentySet.textContent = twenty;
+        twentySet.textContent = "$20 x" +twenty;
         if (twenty) {
             twentySet.setAttribute('class', 'dollar');
         }
@@ -42,7 +42,7 @@ const calculate = function calculate() {
         var ten = Math.floor(twentyMod / 10);
         var tenMod = twentyMod % 10;
         var tenSet = document.getElementById("ten");
-        tenSet.textContent = ten;
+        tenSet.textContent = "$10 x" +ten;
         if (ten) {
             tenSet.setAttribute('class', 'dollar');
         }
@@ -50,7 +50,7 @@ const calculate = function calculate() {
         var five = Math.floor(tenMod / 5);
         var fiveMod = tenMod % 5;
         var fiveSet = document.getElementById("five");
-        fiveSet.textContent = five;
+        fiveSet.textContent = "$5 x" +five;
         if (five) {
             fiveSet.setAttribute('class', 'dollar');
         }
@@ -58,7 +58,7 @@ const calculate = function calculate() {
         var one = Math.floor(fiveMod / 1);
         var oneMod = fiveMod % 1;
         var oneSet = document.getElementById("one");
-        oneSet.textContent = one;
+        oneSet.textContent = "$1 x" +one;
         if (one) {
             oneSet.setAttribute('class', 'dollar');
         }
@@ -66,7 +66,7 @@ const calculate = function calculate() {
         var quarter = Math.floor(oneMod / .25);
         var quarterMod = oneMod % .25;
         var quarterSet = document.getElementById("quarter");
-        quarterSet.textContent = quarter;
+        quarterSet.textContent = "$.25 x" +quarter;
         if (quarter) {
             quarterSet.setAttribute('class', 'coin');
         }
@@ -74,7 +74,7 @@ const calculate = function calculate() {
         var dime = Math.floor(quarterMod / .1);
         var dimeMod = quarterMod % .1;
         var dimeSet = document.getElementById("dime");
-        dimeSet.textContent = dime;
+        dimeSet.textContent = "$.10 x" +dime;
         if (dime) {
             dimeSet.setAttribute('class', 'coin');
         }
@@ -82,14 +82,14 @@ const calculate = function calculate() {
         var nickle = Math.floor(dimeMod / .05);
         var nickleMod = dimeMod % .05;
         var nickleSet = document.getElementById("nickle");
-        nickleSet.textContent = nickle;
+        nickleSet.textContent = "$.05 x" +nickle;
         if (nickle) {
             nickleSet.setAttribute('class', 'coin');
         }
 
         var penny = nickleMod.toFixed(2) * 100;
         var pennySet = document.getElementById("penny");
-        pennySet.textContent = penny;
+        pennySet.textContent = "$.01 x" +penny;
         if (penny) {
             pennySet.setAttribute('class', 'coin');
         }
