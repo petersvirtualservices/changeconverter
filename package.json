@@ -7,7 +7,7 @@
   "description": "This app is meant to help you know how much change to give back.",
   "main": "script.js",
   "dependencies": {
-    "lighthouse": "^8.3.0"
+    "lighthouse": "^8.6.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,6 +21,5 @@
   "bugs": {
     "url": "https://github.com/petersvirtualservices/changeconverter/issues"
   },
-  "homepage": "https://github.com/petersvirtualservices/changeconverter#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/petersvirtualservices/changeconverter#readme"
 }
