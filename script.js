@@ -1,4 +1,6 @@
 var convertButton = document.getElementById("submitDifference");
+var pastCalculations = document.getElementById("pastCalculations");
+var buttonSubmitPast = document.getElementById("buttonSubmitPast");
 
 convertButton.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -141,12 +143,40 @@ const calculate = function calculate() {
     }
 
     request.onsuccess = function () {
-        request.result;
+        const db = request.result;
         changeConversion();
+        const tx = db.transaction("calculations", "readwrite");
+        const cStore = tx.objectStore("calculations");
+        var getEntries = cStore.getAllKeys();
+        pastCalculations.innerText = getEntries;
     };
 
     request.onerror = function () {
         alert(`Error: Check Console Log`);
     }
-
+    
 };
+
+
+
+buttonSubmitPast.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const db = request.result;
+        const tx = db.transaction("calculations", "readwrite");
+        const cStore = tx.objectStore("calculations");
+    
+    
+});
+
+
+/*
+var transaction = db.transaction(["calculations"]);
+var objectStore = transaction.objectStore("calculations");
+var request = objectStore.get("444-44-4444");
+request.onerror = event => {
+  // Handle errors!
+};
+request.onsuccess = event => {
+    console.log("Name for SSN 444-44-4444 is " + request.result.name);
+};
+*/
