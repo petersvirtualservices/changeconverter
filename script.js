@@ -20,7 +20,7 @@ const calculate = function calculate() {
         var hundred = Math.floor(dif / 100);
         var hundredMod = dif % 100;
         var hundredSet = document.getElementById("hundred");
-        hundredSet.textContent = "$100 x" +hundred;
+        hundredSet.textContent = "$100 x" + hundred;
         if (hundred) {
             hundredSet.setAttribute('class', 'dollar');
         }
@@ -28,7 +28,7 @@ const calculate = function calculate() {
         var fifty = Math.floor(hundredMod / 50);
         var fiftyMod = hundredMod % 50;
         var fiftySet = document.getElementById("fifty");
-        fiftySet.textContent = "$50 x" +fifty;
+        fiftySet.textContent = "$50 x" + fifty;
         if (fifty) {
             fiftySet.setAttribute('class', 'dollar');
         }
@@ -36,7 +36,7 @@ const calculate = function calculate() {
         var twenty = Math.floor(fiftyMod / 20);
         var twentyMod = fiftyMod % 20;
         var twentySet = document.getElementById("twenty");
-        twentySet.textContent = "$20 x" +twenty;
+        twentySet.textContent = "$20 x" + twenty;
         if (twenty) {
             twentySet.setAttribute('class', 'dollar');
         }
@@ -44,7 +44,7 @@ const calculate = function calculate() {
         var ten = Math.floor(twentyMod / 10);
         var tenMod = twentyMod % 10;
         var tenSet = document.getElementById("ten");
-        tenSet.textContent = "$10 x" +ten;
+        tenSet.textContent = "$10 x" + ten;
         if (ten) {
             tenSet.setAttribute('class', 'dollar');
         }
@@ -52,7 +52,7 @@ const calculate = function calculate() {
         var five = Math.floor(tenMod / 5);
         var fiveMod = tenMod % 5;
         var fiveSet = document.getElementById("five");
-        fiveSet.textContent = "$5 x" +five;
+        fiveSet.textContent = "$5 x" + five;
         if (five) {
             fiveSet.setAttribute('class', 'dollar');
         }
@@ -60,7 +60,7 @@ const calculate = function calculate() {
         var one = Math.floor(fiveMod / 1);
         var oneMod = fiveMod % 1;
         var oneSet = document.getElementById("one");
-        oneSet.textContent = "$1 x" +one;
+        oneSet.textContent = "$1 x" + one;
         if (one) {
             oneSet.setAttribute('class', 'dollar');
         }
@@ -68,7 +68,7 @@ const calculate = function calculate() {
         var quarter = Math.floor(oneMod / .25);
         var quarterMod = oneMod % .25;
         var quarterSet = document.getElementById("quarter");
-        quarterSet.textContent = "$.25 x" +quarter;
+        quarterSet.textContent = "$.25 x" + quarter;
         if (quarter) {
             quarterSet.setAttribute('class', 'coin');
         }
@@ -76,7 +76,7 @@ const calculate = function calculate() {
         var dime = Math.floor(quarterMod / .1);
         var dimeMod = quarterMod % .1;
         var dimeSet = document.getElementById("dime");
-        dimeSet.textContent = "$.10 x" +dime;
+        dimeSet.textContent = "$.10 x" + dime;
         if (dime) {
             dimeSet.setAttribute('class', 'coin');
         }
@@ -84,14 +84,14 @@ const calculate = function calculate() {
         var nickle = Math.floor(dimeMod / .05);
         var nickleMod = dimeMod % .05;
         var nickleSet = document.getElementById("nickle");
-        nickleSet.textContent = "$.05 x" +nickle;
+        nickleSet.textContent = "$.05 x" + nickle;
         if (nickle) {
             nickleSet.setAttribute('class', 'coin');
         }
 
         var penny = nickleMod.toFixed(2) * 100;
         var pennySet = document.getElementById("penny");
-        pennySet.textContent = "$.01 x" +penny;
+        pennySet.textContent = "$.01 x" + penny;
         if (penny) {
             pennySet.setAttribute('class', 'coin');
         }
@@ -99,14 +99,16 @@ const calculate = function calculate() {
 
     //***********INDEXEDDB***********
 
-    const request = indexedDB.open("Change");
+    const request = window.indexedDB.open("Change");
     let db;
 
     request.onupgradeneeded = function () {
         const db = request.result;
-        const store = db.createObjectStore("calculations", { keyPath: "saleAmount" });
+        const store = db.createObjectStore("calculations", { keyPath: "id", autoIncrement: true });
+        const id = store.createIndex("ID", "id");
         const amountGiven = store.createIndex("Amount_Given", "given");
         const saleAmount = store.createIndex("Sale_Amount", "saleAmount");
+        const difference = store.createIndex("Difference", "dif");
         const hundredStore = store.createIndex("hundreds", "hundred");
         const fiftyStore = store.createIndex("fiftys", "fifty");
         const twentyStore = store.createIndex("twentys", "twenty");
@@ -116,7 +118,7 @@ const calculate = function calculate() {
         const quarterStore = store.createIndex("quarters", "quarter");
         const dimeStore = store.createIndex("dimes", "dime");
         const nickleStore = store.createIndex("nickles", "nickle");
-        const pennyStore = store.createIndex("pennys", "penny");    
+        const pennyStore = store.createIndex("pennys", "penny");
     };
 
     function changeConversion() {
@@ -124,6 +126,7 @@ const calculate = function calculate() {
         const changeToGive = {
             given: g,
             saleAmount: a,
+            dif: dif,
             penny: penny,
             nickle: nickle,
             dime: dime,
@@ -135,48 +138,56 @@ const calculate = function calculate() {
             fifty: fifty,
             hundred: hundred
         }
-
         const db = request.result;
         const tx = db.transaction("calculations", "readwrite");
         const cStore = tx.objectStore("calculations");
         cStore.add(changeToGive);
+
     }
 
-    request.onsuccess = function () {
+    request.onsuccess = function (e) {
         const db = request.result;
         changeConversion();
-        const tx = db.transaction("calculations", "readwrite");
+        var pastCalculations = document.getElementById("pastCalculations");
+        pastCalculations.innerHTML = `<b>...Loading</b>`;
+        const tx = db.transaction("calculations", "readonly");
+        tx.oncomplete = (ev) => {
+
+        }
         const cStore = tx.objectStore("calculations");
-        var getEntries = cStore.getAllKeys();
-        pastCalculations.innerText = getEntries;
+        let getReq = cStore.getAll();
+
+        getReq.onsuccess = (ev) => {
+            let request = ev.target;
+            console.log({ request });
+            pastCalculations.innerHTML = request.result.map(change => {
+                return `
+                <b>Transaction ID: ${change.id}</b><br/>
+                Sale Amount:$${change.saleAmount}<br/>
+                Amount Given:$${change.amountGiven}<br/>
+                Difference:$${change.dif}<br/>
+                Hundreds:${change.hundred}<br/>
+                Fifties:${change.fifty}<br/>
+                Twenties:${change.twenty}<br/>
+                Tens:${change.ten}<br/>
+                Fives:${change.five}<br/>
+                Ones:${change.one}<br/>
+                Quarters:${change.quarter}<br/>
+                Dimes:${change.dime}<br/>
+                Nickles:${change.nickle}<br/>
+                Pennies:${change.penny}<br/><br/><br/>             
+                `;
+            }).join('\n');
+        }
+
+        getReq.onerror = (err) => {
+            console.warn(err);
+        }
     };
 
     request.onerror = function () {
         alert(`Error: Check Console Log`);
     }
-    
+
 };
 
-
-
-buttonSubmitPast.addEventListener("submit", function(e) {
-    e.preventDefault();
-    const db = request.result;
-        const tx = db.transaction("calculations", "readwrite");
-        const cStore = tx.objectStore("calculations");
-    
-    
-});
-
-
-/*
-var transaction = db.transaction(["calculations"]);
-var objectStore = transaction.objectStore("calculations");
-var request = objectStore.get("444-44-4444");
-request.onerror = event => {
-  // Handle errors!
-};
-request.onsuccess = event => {
-    console.log("Name for SSN 444-44-4444 is " + request.result.name);
-};
-*/

@@ -64,7 +64,8 @@ label {
 
 table{
     margin: 0 auto;
-    padding: 5px;
+    font-size:20px;
+    padding:10px;
 }
 
 button {
@@ -87,4 +88,8 @@ input {
     width: 200px;
     border-radius: 5px;
     margin: 10px;
+}
+
+#pastCalculations {
+    font-size:20px;
 }
